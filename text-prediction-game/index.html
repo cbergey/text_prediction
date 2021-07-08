@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<html lang="en-US">
+<meta charset="UTF-8">
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src='js/client.js'></script>
+    <script type="text/javascript" src='js/vars.js'></script>
+    <script type="text/javascript" src='js/dataio.js'></script>
+    <script type="text/javascript" src='js/expt.js'></script>
+    <script type="text/javascript" src='js/stim.js'></script>
+    <script type="text/javascript" src='js/clickMapping.js'></script>
+</head>
+
+
+<body onload="pageLoad();">
+
+<div id="consent" class="screen">
+    <h1 class="mtitle">Please read the consent form:</h1>
+   <center><p>
+    <object data="pdf/consent.pdf" type="application/pdf" width="700px" height="510px" internalinstanceid="8">
+    	<embed src="pdf/consent.pdf">
+        	Your browser does not support viewing pdfs. Please download the consent form and read it carefully: <a href="pdf/consent.pdf">Download PDF</a>.<p></p>
+    </object> 
+    </p>
+    <p id="radioConsent">
+    	<input type="radio" class="prescreening" name="consent" value="yes"> I agree to participate.<br>
+        <input type="radio" class="prescreening" name="consent" value="no"> I <b>DO NOT</b> agree to participate.
+    </p></center>
+
+    <button class="hover-button big-button" id="continueConsent" onclick="clickContConsent();"> Click to continue to study</button>
+</div>
+
+<div id="trial" class="screen">
+    <p class="mtitle" id="round">Round</p>
+    
+    <br><br><br><br>
+    <button class="hover-button big-button" id="next" type="button" onclick="trialDone();">Next!</button>
+</div>
+
+<div id="completed" class="screen">
+    <p class="mtitle">Thank you for your participation!</p>
+    <button class="hover-button big-button" id="finished" onclick="experimentDone();">Finished!</button>
+</div>
+
+</body>
