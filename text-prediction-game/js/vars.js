@@ -25,6 +25,8 @@ var word = {
 
 }
 
+var predActive = false;
+
 var client = parseClient();
 var trialData = []; //store all data in json format
 var vidData = [];

@@ -6,6 +6,10 @@
 <head>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src='js/helpers/lodash.js'></script>
+    <script type="text/javascript" src='ngram/adult_childes_unigram.json'></script>
+    <script type="text/javascript" src='ngram/adult_childes_bigram.json'></script>
+    <script type="text/javascript" src='ngram/adult_childes_trigram.json'></script>
     <script type="text/javascript" src='js/client.js'></script>
     <script type="text/javascript" src='js/vars.js'></script>
     <script type="text/javascript" src='js/dataio.js'></script>
@@ -40,10 +44,9 @@
         <div id="stimRow"></div><br><br>
 
         <p>Tell a story about the images above</p>
-        <!-- response textbox -->
-        <textarea id="response" name="response" value=""></textarea>
     </center>
-    
+    <div id="response" contenteditable="true"></div>
+
     <br><br><br><br>
     <button class="hover-button big-button" id="next" type="button" onclick="trialDone();">Next!</button>
 </div>
