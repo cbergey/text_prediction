@@ -154,13 +154,23 @@ body {
     width: 300px;
 }
 
-textarea {
+#response {
     display: relative;
+    margin: 0 auto;
+    padding: 5px;
     width: 800px;
     height: 200px;
-    resize: none;
+    /*resize: none;*/
+    border:1px solid black;
 }
 
+#responseWords {
+    color: black;
+}
+
+#predictedWord {
+    color: #D6D6D6;
+}
 
 
 
