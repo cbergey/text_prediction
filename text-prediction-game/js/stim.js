@@ -8,7 +8,7 @@ var stim = [
 ];
 
 var ngram = {
-	"0" : "adult_childes_unigram.json",
-	"1" : "adult_childes_bigram.json",
-	"2" : "adult_childes_trigram.json"
+	"0" : childes_unigram,
+	"1" : childes_bigram,
+	"2" : childes_trigram
 }
