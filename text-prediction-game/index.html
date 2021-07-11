@@ -9,8 +9,8 @@
     <script type="text/javascript" src='js/client.js'></script>
     <script type="text/javascript" src='js/vars.js'></script>
     <script type="text/javascript" src='js/dataio.js'></script>
-    <script type="text/javascript" src='js/expt.js'></script>
     <script type="text/javascript" src='js/stim.js'></script>
+    <script type="text/javascript" src='js/expt.js'></script>
     <script type="text/javascript" src='js/clickMapping.js'></script>
 </head>
 
@@ -35,6 +35,14 @@
 
 <div id="trial" class="screen">
     <p class="mtitle" id="round">Round</p>
+    <center>
+        <!-- stimuli presentation -->
+        <div id="stimRow"></div><br><br>
+
+        <p>Tell a story about the images above</p>
+        <!-- response textbox -->
+        <textarea id="response" name="response" value=""></textarea>
+    </center>
     
     <br><br><br><br>
     <button class="hover-button big-button" id="next" type="button" onclick="trialDone();">Next!</button>
