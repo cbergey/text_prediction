@@ -12,17 +12,18 @@ var trial = {
     stim: [],
     startTime: 0,
     endTime: 0,
-    totalTime: 0
+    totalTime: 0,
+    fullResponse: ''
 }
 
 var word = {
     number: 0,
     prediction: '',
     text: '',
+    acceptPred: false,
     startTime: 0,
     time: 0,
     cumulTime: 0
-
 }
 
 var predActive = false;
