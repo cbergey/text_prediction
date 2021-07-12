@@ -66,7 +66,7 @@ function getPrediction(){
             return(predWord);
         }
     } catch(error){ // if no word is predicted, return blank
-        // console.error(error);
+        //console.error(error);
         return('');
     }
     
@@ -84,10 +84,9 @@ function setCarat(charIndex){
 function showPrediction(){
     var charLen = $('#response').text().length;
     word.prediction = getPrediction();
-    // $('#response').focus();
     $('#response').append("<font id='predictedWord'>" + word.prediction + "</font>");
     setCarat(charLen); // set carat to before predicted word
-    console.log(word.prediction);
+    word.acceptPred = false; //reset whether prediction was accepted
 }
 
 function hidePrediction(){
@@ -96,29 +95,33 @@ function hidePrediction(){
 
 function acceptPrediction(){
     hidePrediction();
-    $('#response').append(word.prediction);
-    $('#response').focus();
+    var value = $('#response').text(); // save text and append on word prediction // fixes carat issue
+    value = value + word.prediction + '&nbsp';
+    trial.fullResponse = value;
+    $('#response').html(value); 
 }
 
 function listenResponse(){
     var keyPress = function(e){
         var key = e.keyCode;
         if(key == 32) { // click spacebar => new word
-            word.time = new Date().getTime() - word.startTime;
+            trial.fullResponse = $('#response').text();
             saveData(); //save data after every word
             word.startTime = new Date().getTime(); //reset word timer
             showPrediction();
             predActive = true;
         } else if(key == 9) {
             e.preventDefault();
-        //     if(predActive) {
-        //         acceptPrediction();
-        //         // word.time = new Date().getTime() - word.startTime;
-        //         // saveData(); //save data after every word
-        //         // word.startTime = new Date().getTime(); //reset word timer
-        //         // showPrediction();
-        //         predActive = false;
-        //    }
+            // if !predActive => nothing happens
+            // if predActive => accept prediction and generate new prediction
+            if(predActive) {
+                acceptPrediction();
+                word.acceptPred = true; // save data saying prediction was accepted; resets in showPrediction()
+                saveData(); //save data after every word
+                word.startTime = new Date().getTime(); //reset word timer
+                showPrediction();
+                predActive = true;
+            }
         } else {
             hidePrediction();
             predActive = false;
@@ -133,6 +136,7 @@ function clearListenResponse(){
 }
 
 function saveData(){
+    word.time = new Date().getTime() - word.startTime;
     var fullResponse = $('#response').val();
     word.text = getLastNWords(fullResponse, 1);
 
@@ -176,6 +180,7 @@ function recordData(){
         wordNumber: word.number,
         textPrediction: word.prediction,
         textResponse: word.text,
+        predAccepted: word.acceptPred,
         wordTime: word.time,
         trialCumulTime: word.cumulTime
         
@@ -218,7 +223,9 @@ function debugLog(message) {
 }
 
 function getSplitStr(string){
-    return(string.split(" "));
+    var splitStr = string.split(/\W/g); //removes weird non-alpha characters
+    splitStr = remove(splitStr, ''); //removes blanks '' from split string array
+    return(splitStr);
 }
 
 function getStringLen(string) {
@@ -241,4 +248,10 @@ function getLastNWords(string, n) {
 
 function getMaxKey(d){
     return(Object.entries(d).reduce((a, b) => a[1] > b[1] ? a : b)[0])
+}
+
+function remove(arr, val){
+    return(arr.filter(function(el){
+        return(el != val);
+    }));
 }
