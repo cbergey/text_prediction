@@ -35,12 +35,13 @@
 //       });
 // }            
 
-function writeServer(data){
+function writeServer(data, type){
 	debugLog('initiate server write');
+  var saveURL = type == "w" ? expt.saveURL : expt.saveKeyCodeURL;
   $.ajax({
       dataType: 'json',
       type: 'POST',
-      url: expt.saveURL,
+      url: saveURL,
       data: { data: JSON.stringify(data)},
         success: function(data){
           debugLog('success saving data!');
@@ -53,4 +54,6 @@ function writeServer(data){
         }
       });
 }
+
+
 

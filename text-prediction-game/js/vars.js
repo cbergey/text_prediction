@@ -1,9 +1,10 @@
 var expt = { //add conditions here
     saveURL: 'submit.simple.php',
+    saveKeyCodeURL: 'submit.keycode.php',
     startPage: 'trial', // {'consent','trial'}
     totalTrials: 2, //adjust to how many trials you have
     nStimTrial: 3,
-    debug: false, //set to false when ready to run
+    debug: true, //set to false when ready to run
     stimOrder: []
 };
 
@@ -26,8 +27,18 @@ var word = {
     cumulTime: 0
 }
 
+var char = { // character keycode
+    number: 0,
+    code: '',
+    char: '',
+    acceptPred: false,
+    startTime: 0,
+    time: 0
+}
+
 var predActive = false;
 
 var client = parseClient();
 var trialData = []; //store all data in json format
-var vidData = [];
+var data = [];
+var keyCodeData = [];
