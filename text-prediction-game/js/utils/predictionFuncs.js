@@ -43,3 +43,15 @@ function acceptPrediction(){
     trial.fullResponse = value;
     $('#response').html(value); 
 }
+
+
+
+
+    //////////////////////////////////
+   //////// Helper Functions ////////
+  //////////////////////////////////
+
+function getMaxKey(d){
+    return(Object.entries(d).reduce((a, b) => a[1] > b[1] ? a : b)[0])
+}
+

@@ -50,6 +50,14 @@ function presentStim(numStim){
 
 function saveKeyCode(){
     char.time = new Date().getTime() - char.startTime;
+    char.char = String.fromCharCode(char.code);
+
+    recordKeyCode();
+    // these lines write to server
+    let data = {client: client, expt: expt, trials: keyCodeData};
+    if(!expt.debug){
+        writeServer(data, "c");
+    }
 
     ++char.number;
 }
@@ -59,9 +67,9 @@ function saveData(){
 
     recordData();
     // these lines write to server
-    data = {client: client, expt: expt, trials: trialData};
+    let data = {client: client, expt: expt, trials: trialData};
     if(!expt.debug){
-        writeServer(data);
+        writeServer(data, "w");
     }
 }
 
@@ -79,8 +87,7 @@ function trialDone(){
     if(trial.number == expt.totalTrials){
         $('#trial').css('display', 'none');
         $('#completed').css('display','block');
-    }
-    else {
+    } else {
         // increase trial number
         ++trial.number;
         trial.endTime = null;
@@ -91,9 +98,11 @@ function trialDone(){
 function recordKeyCode(){
     keyCodeData.push({
         trialNumber: trial.number,
-        prediction: char.prediction,
+        charNumber: char.number,
+        prediction: word.prediction,
         acceptPred: char.acceptPred,
         keycode: char.code,
+        char: char.char,
         startTime: char.startTime,
         time: char.time
     })
@@ -174,9 +183,6 @@ function getLastNWords(string, n) {
     return(wArr.join(' '));
 }
 
-function getMaxKey(d){
-    return(Object.entries(d).reduce((a, b) => a[1] > b[1] ? a : b)[0])
-}
 
 function remove(arr, val){
     return(arr.filter(function(el){
