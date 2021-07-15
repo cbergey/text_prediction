@@ -11,12 +11,15 @@ function setCarat(charIndex){
 function listenResponse(){
     var keyPress = function(e){
         var key = e.keyCode;
+        char.acceptPred = false;
+        char.code = key; //save keycode to data
 
         if(key == 32) { // click spacebar => new word
             trial.fullResponse = $('#response').text();
             word.text = getLastNWords(trial.fullResponse, 1);
             saveData(); //save data after every word
             word.startTime = new Date().getTime(); //reset word timer
+            saveKeyCode();
             showPrediction();
             predActive = true;
         } else if(key == 9) {
@@ -27,18 +30,18 @@ function listenResponse(){
                 acceptPrediction();
                 word.text = word.prediction;
                 word.acceptPred = true; // save data saying prediction was accepted; resets in showPrediction()
+                char.acceptPred = true;
                 saveData(); //save data after every word
                 word.startTime = new Date().getTime(); //reset word timer
+                saveKeyCode();
                 showPrediction();
                 predActive = true;
             }
         } else {
+        	saveKeyCode();
             hidePrediction();
             predActive = false;
         }
-
-        char.code = key; //save keycode to data
-
     }
     $("#response").keydown(keyPress);
 }
