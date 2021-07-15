@@ -13,9 +13,16 @@ function getPrediction(){
             predWord = predWord.charAt(0).toUpperCase() + predWord.slice(1); // capitalize first word
             return(predWord);
         } else { // look up bigram or trigram
-            var lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-            var predWord = getMaxKey(nDict[lastWords]); // get most likely next word
-            return(predWord);
+            try {
+                var lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
+                var predWord = getMaxKey(nDict[lastWords]); // get most likely next word
+                return(predWord);
+            } catch(error) { // if we don't have enough known context, back off on amount of context
+                nWords = nWords == 1 ? 1 : nWords - 1;
+                var lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
+                var predWord = getMaxKey(nDict[lastWords]); // get most likely next word
+                return(predWord);
+            }
         }
     } catch(error){ // if no word is predicted, return blank
         //console.error(error);
