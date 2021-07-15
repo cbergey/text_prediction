@@ -62,3 +62,14 @@ function getMaxKey(d){
     return(Object.entries(d).reduce((a, b) => a[1] > b[1] ? a : b)[0])
 }
 
+function getNMaxKeys(d, n){
+    let sortArr = [];
+    for(k in d){
+        sortArr.push([k, d[k]]);
+    }
+    sortArr.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+    return(sortArr.slice(0, n));
+}
+
