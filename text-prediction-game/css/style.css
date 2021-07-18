@@ -154,6 +154,10 @@ body {
     width: 300px;
 }
 
+#alert {
+    color: red;
+}
+
 #response {
     display: relative;
     margin: 0 auto;
