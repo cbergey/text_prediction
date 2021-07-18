@@ -1,6 +1,7 @@
 
 
 function getPrediction(){
+    // return("you"); //for testing text functions
     var nWords = getStringLen($('#response').text());
     word.number = nWords;
     nWords = Math.min(nWords, 2); // if # words > 2, reduce to 2
@@ -9,8 +10,12 @@ function getPrediction(){
     //stuff here to get prediction from dictionary
     try {
         if(nWords == 0) { // look up unigram
-            var predWord = getMaxKey(nDict); // get most likely next word
-            predWord = predWord.charAt(0).toUpperCase() + predWord.slice(1); // capitalize first word
+            /* When no words already, predict most common unigram */
+            // var predWord = getMaxKey(nDict); // get most likely next word
+            // predWord = predWord.charAt(0).toUpperCase() + predWord.slice(1); // capitalize first word
+
+            /* When no words already, predict nothing */
+            predWord = '';
             return(predWord);
         } else { // look up bigram or trigram
             try {
@@ -32,10 +37,10 @@ function getPrediction(){
 }
 
 function showPrediction(){
-    var charLen = $('#response').text().length;
+    let charLen = $('#response').text().length;
     word.prediction = getPrediction();
     $('#response').append("<font id='predictedWord'>" + word.prediction + "</font>");
-    setCarat(charLen); // set carat to before predicted word
+    setCaret(charLen); // set carat to before predicted word
     word.acceptPred = false; //reset whether prediction was accepted
 }
 
