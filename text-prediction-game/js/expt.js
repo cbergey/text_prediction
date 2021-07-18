@@ -34,6 +34,7 @@ function trialStart(){
     $('#stimRow').html(presentStim(expt.nStimTrial));
     listenResponse();
     showPrediction();
+    turnOffCaretMove();
 }
 
 function presentStim(numStim){
@@ -45,6 +46,14 @@ function presentStim(numStim){
         stimTable += "<div class='stimCell'><img class='stimImg' src='img/stim-img/"+thisStim+"'></div>";
     }
     return(stimTable);
+}
+
+function turnOffCaretMove(){
+    $('#response').click(function(){ 
+        let charLen = $('#response').text().length - $('#predictedWord').text().length;
+        setCaret(charLen);
+        alertMessage("Caret movement is off!"); // alert user that they can't move caret
+    });
 }
 
 
