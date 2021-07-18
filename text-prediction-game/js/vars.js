@@ -37,6 +37,7 @@ var char = { // character keycode
 }
 
 var predActive = false;
+var alertMsg = null;
 
 var client = parseClient();
 var trialData = []; //store all data in json format
