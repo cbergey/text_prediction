@@ -46,15 +46,7 @@ function presentStim(numStim){
         stimTable += "<div class='stimCell'><img class='stimImg' src='img/stim-img/"+thisStim+"'></div>";
     }
     return(stimTable);
-}
-
-function turnOffCaretMove(){
-    $('#response').click(function(){ 
-        let charLen = $('#response').text().length - $('#predictedWord').text().length;
-        setCaret(charLen);
-        alertMessage("Caret movement is off!"); // alert user that they can't move caret
-    });
-}
+} 
 
 
 function saveKeyCode(){
@@ -168,33 +160,3 @@ function debugLog(message) {
     }
 }
 
-function getSplitStr(string){
-    var splitStr = string.split(/\W/g); //removes weird non-alpha characters
-    splitStr = remove(splitStr, ''); //removes blanks '' from split string array
-    return(splitStr);
-}
-
-function getStringLen(string) {
-    if(string == ''){
-        return(0);
-    } else{
-        return(getSplitStr(string).length);
-    }
-}
-
-function getLastNWords(string, n) {
-    var l = getStringLen(string);
-    var ws = getSplitStr(string);
-    var wArr = [];
-    for(var i=l-n; i<l; i++){
-        wArr.push(ws[i]);
-    }
-    return(wArr.join(' '));
-}
-
-
-function remove(arr, val){
-    return(arr.filter(function(el){
-        return(el != val);
-    }));
-}
