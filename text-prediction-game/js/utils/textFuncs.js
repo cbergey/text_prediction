@@ -25,12 +25,14 @@ function listenResponse(){
 
         if(key == 32) { // click spacebar => new word
             if(!space){ // this if statement ignores double spaces
-                trial.fullResponse = $('#response').text();
-                word.text = getLastNWords(trial.fullResponse, 1);
                 saveData(); //save data after every word
                 word.startTime = new Date().getTime(); //reset word timer
                 saveKeyCode();
-                showPrediction();
+                if($('#response').text().slice(-1) == '.'){ // hacky --- no prediction if previous character is period+space
+                    word.prediction = '';
+                } else{
+                    showPrediction();
+                }
                 predActive = true;
                 space = true;
             }
@@ -90,11 +92,7 @@ function alertMessage(txt){
 
 // split text into sentences
 function getSplitSents(string){
-    // if(string.slice(-2) == '. '){
-    //     return(string.split('. ').push(null)); //split text up by sentences that follow period+space pattern + null
-    // } else{
-        return(string.split('. ')); //split text up by sentences that follow period+space pattern
-    // }
+    return(string.split('. ')); //split text up by sentences that follow period+space pattern
 }
 
 function getSplitStr(string){
@@ -113,17 +111,21 @@ function getStringLen(string) {
     }
 }
 
-function getLastNWords(string, n) {
-    let l = getStringLen(string);
-    let sents = getSplitSents(string);
-    let lastSent = sents[sents.length - 1];
-    console.log(lastSent)
-    let ws = getSplitStr(lastSent);
-    let wArr = [];
-    for(var i=l-n; i<l; i++){
-        wArr.push(ws[i]);
-    }
+function getLastNWords(string, n, punct=false) {
+    if(punct) { //preserves punctuation (for saving data)
+        let words = string.split(" ");
+        return(words[words.length-1]);
+    } else {
+        let l = getStringLen(string);
+        let sents = getSplitSents(string);
+        let lastSent = sents[sents.length - 1];
+        let ws = getSplitStr(lastSent);
+        let wArr = [];
+        for(var i=l-n; i<l; i++){
+            wArr.push(ws[i]);
+        }
     return(wArr.join(' '));
+    }
 }
 
 
