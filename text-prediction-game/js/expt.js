@@ -2,6 +2,7 @@
 
 function pageLoad(){
     expt.stimOrder = shuffle(stim);
+    $("#demoSurvey").load("demographic.html");
     clicksMap[expt.startPage]();
 }
 
@@ -16,8 +17,14 @@ function loadConsent(){
         });
 }
 
-function clickContConsent(){
+function clickConsent(){
     $('#consent').css('display','none');
+    $('#demographic').css('display','block');
+}
+
+function clickDemo(){
+    $('#demographic').css('display','none');
+    submitDemo();
     trialStart();
 }
 
