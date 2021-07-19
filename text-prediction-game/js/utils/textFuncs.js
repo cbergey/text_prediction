@@ -17,7 +17,7 @@ function listenResponse(){
         let caret = false;
 
         // prevent caret from being moved by arrow keys
-        if([37,38,39,40].includes(key)) {
+        if([37,38,39,40].includes(key)) { // click arrow keys => do nothing
         	e.preventDefault();
         	caret = true;
             alertMessage("The arrow keys are turned off!"); // alert user that they can't use arrow keys
@@ -36,7 +36,7 @@ function listenResponse(){
                 predActive = true;
                 space = true;
             }
-        } else if(key == 9) {
+        } else if(key == 9) { // click tab => accept prediction
             e.preventDefault();
             // if !predActive => nothing happens
             // if predActive => accept prediction and generate new prediction
@@ -51,6 +51,8 @@ function listenResponse(){
                 showPrediction();
                 predActive = true;
             }
+        } else if(key == 13) { // click enter => do nothing
+            e.preventDefault();
         } else {
         	saveKeyCode();
         	if(!caret){
