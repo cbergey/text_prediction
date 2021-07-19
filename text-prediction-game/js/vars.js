@@ -4,7 +4,7 @@ var expt = { //add conditions here
     startPage: 'trial', // {'consent','trial'}
     totalTrials: 2, //adjust to how many trials you have
     nStimTrial: 3,
-    debug: true, //set to false when ready to run
+    debug: false, //set to false when ready to run
     stimOrder: []
 };
 
