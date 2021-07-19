@@ -64,6 +64,8 @@ function saveKeyCode(){
 }
 
 function saveData(){
+    trial.fullResponse = $('#response').text();
+    word.text = getLastNWords(trial.fullResponse, 1, true);
     word.time = new Date().getTime() - word.startTime;
 
     recordData();
@@ -92,6 +94,7 @@ function trialDone(){
         // increase trial number
         ++trial.number;
         trial.endTime = null;
+        $('#response').text(''); //clears text between trials
         trialStart();
     }
 }
