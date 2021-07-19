@@ -16,6 +16,7 @@
     <script type="text/javascript" src='js/stim.js'></script>
     <script type="text/javascript" src='js/utils/predictionFuncs.js'></script>
     <script type="text/javascript" src='js/utils/textFuncs.js'></script>
+    <script type="text/javascript" src='js/questions.js'></script>
     <script type="text/javascript" src='js/expt.js'></script>
     <script type="text/javascript" src='js/clickMapping.js'></script>
 </head>
@@ -36,7 +37,12 @@
         <input type="radio" class="prescreening" name="consent" value="no"> I <b>DO NOT</b> agree to participate.
     </p></center>
 
-    <button class="hover-button big-button" id="continueConsent" onclick="clickContConsent();"> Click to continue to study</button>
+    <button class="hover-button big-button" id="continueConsent" onclick="clickConsent();"> Click to continue to study</button>
+</div>
+
+<div id="demographic" class="screen">
+    <div id="demoSurvey"></div><br><br>
+    <center><button class="hover-button big-button" id="continueDemo" onclick="clickDemo();">Continue</button></center>
 </div>
 
 <div id="trial" class="screen">
