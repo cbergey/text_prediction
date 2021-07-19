@@ -11,21 +11,21 @@ function getPrediction(){
     try {
         if(nWords == 0) { // look up unigram
             /* When no words already, predict most common unigram */
-            // var predWord = getMaxKey(nDict); // get most likely next word
+            // let predWord = getMaxKey(nDict); // get most likely next word
             // predWord = predWord.charAt(0).toUpperCase() + predWord.slice(1); // capitalize first word
 
             /* When no words already, predict nothing */
-            predWord = '';
+            let predWord = '';
             return(predWord);
         } else { // look up bigram or trigram
             try {
-                var lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-                var predWord = getMaxKey(nDict[lastWords]); // get most likely next word
+                let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
+                let predWord = getMaxKey(nDict[lastWords]); // get most likely next word
                 return(predWord);
             } catch(error) { // if we don't have enough known context, back off on amount of context
                 nWords = nWords == 1 ? 1 : nWords - 1;
-                var lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-                var predWord = getMaxKey(nDict[lastWords]); // get most likely next word
+                let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
+                let predWord = getMaxKey(nDict[lastWords]); // get most likely next word
                 return(predWord);
             }
         }
