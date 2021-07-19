@@ -66,6 +66,10 @@ ul {
     margin: 0.5em 10% 0.5em 10%;
 }
 
+form {
+    margin: 1em 8% 1em 8%;
+}
+
 #subsetInstr {
     padding: 2px;
     display: block;
