@@ -57,6 +57,8 @@ function showQuestions(){
 		expt.postQhtml += "<br><br><br><br><br><br><br><br>";
 	}
 	$("#posttestSurvey").html(expt.postQhtml);
+
+	setupSlider();
 }
 
 function addSlider(qi){
