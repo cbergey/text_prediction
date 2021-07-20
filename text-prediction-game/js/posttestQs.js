@@ -6,7 +6,7 @@ var postQs = [
 		"answers": ["not at all", "a lot"]
 	}, {
 		"id": "predictOn",
-		"question": "Do you keep prediction settings on?",
+		"question": "Do you usually keep prediction settings on?",
 		"type": "radio",
 		"answers": ["yes", "no"]
 	}
