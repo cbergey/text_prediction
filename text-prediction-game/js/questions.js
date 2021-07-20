@@ -54,7 +54,7 @@ function showQuestions(){
 				expt.postQhtml += addRadio(postQs[i]);
 				break;
 		}
-		expt.postQhtml;
+		expt.postQhtml += "<br><br><br><br><br><br><br><br>";
 	}
 	$("#posttestSurvey").html(expt.postQhtml);
 }
@@ -68,7 +68,7 @@ function addSlider(qi){
 					 "<div class='min'><p>" + ans[0] + "</p></div>" + 
 					 "<div class='max'><p>" + ans[1] + "</p></div>" + 
 					 "</div>";
-	return(questionHTML + sliderHTML + "</label><br><br><br><br><br>")
+	return(questionHTML + sliderHTML + "</label>")
 }
 
 function addRadio(qi){
@@ -79,7 +79,7 @@ function addRadio(qi){
 	for(a in ans){
 		radioHTML += "<input type='radio' name=" + id + "Radio' value=" + ans[a] + "><label for=" + ans[a] + ">" + ans[a] + "</label>"
 	}
-	return(questionHTML + radioHTML + "</label><br><br><br><br><br>");
+	return(questionHTML + radioHTML + "</label>");
 }
 
 function setupSlider(){
