@@ -302,5 +302,12 @@
 			What's your occupation?
 			<input type="text" id="occupation" name="occupation" value="" size="20">
 		</label>
+		<br><br>
+		<label>
+			Would you consider yourself to have a disability?
+			<input type="radio" name="disability" value="yes" oninput="openExplain('disability');"><label for="yes">Yes</label>
+			<input type="radio" name="disability" value="no" oninput="closeExplain('disability');"><label for="no">No</label>
+			<label class="explain">&nbsp Please explain </label><input id="disabilityExplain" class="explainInput" type="text" name="disabilityExplain" value="" size="40" disabled>
+		</label>
 	</form>
 </body>

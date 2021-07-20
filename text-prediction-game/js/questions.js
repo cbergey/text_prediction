@@ -12,9 +12,7 @@ var demographicClient = { // filled out by participant
 	comments: ""
 }
 
-var posttestQs = {
-
-}
+var postResponse = {};
 
 function openExplain(value){
 	$('#'+value+"Explain").prop("disabled",false);
@@ -66,7 +64,7 @@ function addSlider(qi){
 	let ans = qi["answers"];
 	let questionHTML = "<label id=" + id + ">" + qi["question"];
 	let sliderHTML = "<div class='sliderContainer'>" +
-					 "<input id=" + id + "Slider' class='slider inactiveSlider' type='range' min='0' max='100' value=''><br>" +
+					 "<input id=" + id + "Slider class='slider inactiveSlider' type='range' min='0' max='100' value=''><br>" +
 					 "<div class='min'><p>" + ans[0] + "</p></div>" + 
 					 "<div class='max'><p>" + ans[1] + "</p></div>" + 
 					 "</div>";
@@ -79,7 +77,7 @@ function addRadio(qi){
 	let questionHTML = "<label id=" + id + ">" + qi["question"] + " ";
 	let radioHTML = "";
 	for(a in ans){
-		radioHTML += "<input type='radio' name=" + id + "Radio' value=" + ans[a] + "><label for=" + ans[a] + ">" + ans[a] + "</label>"
+		radioHTML += "<input type='radio' name=" + id + "Radio value=" + ans[a] + "><label for=" + ans[a] + ">" + ans[a] + "</label>"
 	}
 	return(questionHTML + radioHTML + "</label>");
 }
@@ -93,6 +91,21 @@ function setupSlider(){
         });
 }
 
+
+function submitPosttest(){
+	for(i in postQs){
+		let id = postQs[i]["id"];
+		switch(postQs[i]["type"]) {
+			case "slider":
+				postResponse[id] = $("input[id = " + id + "Slider]").val(); //$("input[id = 'trustSlider']").val();
+				break;
+			case "radio":
+				postResponse[id] = $("input[name = " + id + "Radio]:checked").val(); //$("input[name = 'predictOnRadio']:checked").val();
+				break;
+		}
+	}
+	client.posttest = postResponse;
+}
 
 
 
