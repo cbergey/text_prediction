@@ -1,5 +1,6 @@
 var clicksMap = {
 	"consent": loadConsent,
 	"demographic": clickConsent,
-	"trial": trialStart	
+	"trial": trialStart,
+	"posttest": showPosttest
 }

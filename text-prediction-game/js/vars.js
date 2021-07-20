@@ -1,11 +1,12 @@
 var expt = { //add conditions here
     saveURL: 'submit.simple.php',
     saveKeyCodeURL: 'submit.keycode.php',
-    startPage: 'demographic', // {'consent','demographic','trial'}
+    startPage: 'posttest', // {'consent','demographic','trial'}
     totalTrials: 2, //adjust to how many trials you have
     nStimTrial: 3,
     debug: false, //set to false when ready to run
-    stimOrder: []
+    stimOrder: [],
+    postQhtml: ''
 };
 
 var trial = {
