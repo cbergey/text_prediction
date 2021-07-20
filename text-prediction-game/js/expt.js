@@ -113,6 +113,7 @@ function showPosttest(){
 }
 
 function clickPosttest(){
+    submitPosttest();
     $('#postExpt').css('display','none');
     $('#completed').css('display','block');
 }
