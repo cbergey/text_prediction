@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src='js/helpers/lodash.js'></script>
-    <script type="text/javascript" src='ngram/adult_childes_unigram.json'></script>
+    <!-- <script type="text/javascript" src='ngram/adult_childes_unigram.json'></script>
     <script type="text/javascript" src='ngram/adult_childes_bigram.json'></script>
-    <script type="text/javascript" src='ngram/adult_childes_trigram.json'></script>
+    <script type="text/javascript" src='ngram/adult_childes_trigram.json'></script> -->
     <script type="text/javascript" src='js/client.js'></script>
     <script type="text/javascript" src='js/vars.js'></script>
     <script type="text/javascript" src='js/dataio.js'></script>
     <script type="text/javascript" src='js/stim.js'></script>
+    <script type="text/javascript" src='js/posttestQs.js'></script>
     <script type="text/javascript" src='js/utils/predictionFuncs.js'></script>
     <script type="text/javascript" src='js/utils/textFuncs.js'></script>
     <script type="text/javascript" src='js/questions.js'></script>
@@ -58,6 +59,16 @@
 
     <br><br><br><br>
     <button class="hover-button big-button" id="next" type="button" onclick="trialDone();">Next!</button>
+</div>
+
+<div id="postExpt" class="screen">
+    <p class="mtitle">
+        Just a few more questions
+    </p>
+    <center>
+        <div id="posttestSurvey"></div><br><br>
+    </center>
+    <center><button class="hover-button big-button" id="continuePosttest" onclick="clickPosttest();">Continue</button></center>
 </div>
 
 <div id="completed" class="screen">

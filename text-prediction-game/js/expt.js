@@ -3,6 +3,7 @@
 function pageLoad(){
     expt.stimOrder = shuffle(stim);
     $("#demoSurvey").load("demographic.html");
+    // $("#posttest").load("posttest.html");
     clicksMap[expt.startPage]();
 }
 
@@ -96,7 +97,7 @@ function trialDone(){
     // if we are done with all trials, then go to completed page
     if(trial.number == expt.totalTrials){
         $('#trial').css('display', 'none');
-        $('#completed').css('display','block');
+        showPosttest();
     } else {
         // increase trial number
         ++trial.number;
@@ -104,6 +105,16 @@ function trialDone(){
         $('#response').text(''); //clears text between trials
         trialStart();
     }
+}
+
+function showPosttest(){
+    $('#postExpt').css('display','block');
+    showQuestions();
+}
+
+function clickPosttest(){
+    $('#postExpt').css('display','none');
+    $('#completed').css('display','block');
 }
 
 function recordKeyCode(){
