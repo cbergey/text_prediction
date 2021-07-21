@@ -1,6 +1,6 @@
 
 
-function getPrediction(){
+function getPrediction(callfunction){
     // return("you"); //for testing text functions
     var nWords = getStringLen($('#response').text());
     word.number = nWords;
@@ -20,12 +20,15 @@ function getPrediction(){
         } else { // look up bigram or trigram
             try {
                 let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-                let predWord = getMaxKey(nDict[lastWords]); // get most likely next word
+                // ~~ functions ~~
+                // getMax = get most freq word
+                // getProbMatch = stochastically choose from the normed 10-most freq words
+                let predWord = callfunction(nDict[lastWords]); 
                 return(predWord);
             } catch(error) { // if we don't have enough known context, back off on amount of context
                 nWords = nWords == 1 ? 1 : nWords - 1;
                 let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-                let predWord = getMaxKey(nDict[lastWords]); // get most likely next word
+                let predWord = callfunction(nDict[lastWords]); // call function again
                 return(predWord);
             }
         }
@@ -38,7 +41,7 @@ function getPrediction(){
 
 function showPrediction(){
     let charLen = $('#response').text().length;
-    word.prediction = getPrediction();
+    word.prediction = getPrediction(getProbMatch);
     $('#response').append("<font id='predictedWord'>" + word.prediction + "</font>");
     setCaret(charLen); // set carat to before predicted word
     word.acceptPred = false; //reset whether prediction was accepted
@@ -63,11 +66,11 @@ function acceptPrediction(){
    //////// Helper Functions ////////
   //////////////////////////////////
 
-function getMaxKey(d){
+function getMax(d){
     return(Object.entries(d).reduce((a, b) => a[1] > b[1] ? a : b)[0])
 }
 
-function getNMaxKeys(d, n){
+function getNMax(d, n){
     let sortArr = [];
     for(k in d){
         sortArr.push([k, d[k]]);
@@ -77,4 +80,33 @@ function getNMaxKeys(d, n){
     });
     return(sortArr.slice(0, n));
 }
+
+function getProbMatch(d) {
+    let rand = Math.random();
+    d = getNMax(d, 10);
+    let sumProb = Object.keys(d).reduce((sum, key) => sum+parseFloat(d[key][1]||0),0);
+    let cumulProb = 0;
+    for(k in d){
+        cumulProb += d[k][1] / sumProb; // get cumulative probability
+        d[k].push(cumulProb);
+        if(rand <= cumulProb){ // compare to random number sample
+            return(d[k][0]) // return word if it is the first cumulative prob less than the sample
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
