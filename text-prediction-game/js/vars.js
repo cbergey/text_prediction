@@ -1,7 +1,9 @@
 var expt = { //add conditions here
     saveURL: 'submit.simple.php',
     saveKeyCodeURL: 'submit.keycode.php',
-    startPage: 'posttest', // {'consent','demographic','trial','posttest'}
+    startPage: 'trial', // {'consent','demographic','trial','posttest'}
+    condition: 'childes', // {'control', 'childes', 'coca'}
+    lm: '',
     totalTrials: 2, //adjust to how many trials you have
     nStimTrial: 3,
     debug: false, //set to false when ready to run
