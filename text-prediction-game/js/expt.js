@@ -3,8 +3,48 @@
 function pageLoad(){
     expt.stimOrder = shuffle(stim);
     $("#demoSurvey").load("demographic.html");
-    // $("#posttest").load("posttest.html");
+    // loadCondition(expt.condition);
+    
     clicksMap[expt.startPage]();
+}
+
+function loadCondition(){
+    let gram = ["unigram","bigram","trigram"]
+    for(var g=0; g < gram.length; g++){
+        let scriptElement=document.createElement('script');
+        scriptElement.type = 'text/javascript';
+        scriptElement.src = 'ngram/'+expt.condition+'_'+gram[g]+'.json';
+        document.head.appendChild(scriptElement);
+        console.log(scriptElement)
+
+        // if(condition == "childes"){
+        //     switch(g){
+        //         case 0:
+        //             expt.lm[g] = childes_unigram;
+        //             break;
+        //         case 1:
+        //             expt.lm[g] = childes_bigram;
+        //             break;
+        //         case 2:
+        //             expt.lm[g] = childes_trigram;
+        //             break;
+        //     } 
+        // } else if(condition == "COCA"){
+        //     switch(g){
+        //         case 0:
+        //             expt.lm[g] = COCA_unigram;
+        //             break;
+        //         case 1:
+        //             expt.lm[g] = COCA_bigram;
+        //             break;
+        //         case 2:
+        //             expt.lm[g] = COCA_trigram;
+        //             break;
+        //     } 
+        // }
+    }
+
+    console.log(childes_unigram)
 }
 
 function loadConsent(){
@@ -32,7 +72,6 @@ function clickDemo(){
 
 function trialStart(){
     $('#trial').css('display','block');
-    //$('#next').attr('disabled',true);
     $('#round').html('Round ' + trial.number + " of " + expt.totalTrials);
     trial.startTime = new Date().getTime(); //reset start of trial time
     word.startTime = new Date().getTime(); //reset word timer
@@ -143,7 +182,6 @@ function recordData(){
         predAccepted: word.acceptPred,
         wordTime: word.time,
         trialCumulTime: word.cumulTime
-        
     });
 }
 
