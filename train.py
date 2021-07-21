@@ -18,9 +18,11 @@ FILE_NAMES = []
 #read_dir = './childes'
 
 read_dir = '/Users/clairebergey/Box/COCA/texts'
+fiction_dir = 'text_fiction_awq/w_fic_'
+news_dir = 'text_spoken_kde/w_spok_'
 
 for year in range(1990,2005):
-  FILE_NAMES.append('text_fiction_awq/w_fic_' + str(year) + '.txt')
+  FILE_NAMES.append(fiction_dir + str(year) + '.txt')
 
 def get_pos(utt):
 	if isinstance(utt, str):
@@ -88,7 +90,10 @@ trigram_dict = {}
 for i, file_name in enumerate(FILE_NAMES):
 	for line in open(os.path.join(read_dir, file_name), 'r'):
 		tokens = line.replace(' \'', '\'')
-		tokens = re.sub(r'[^\w\s]','', tokens)
+		tokens = tokens.replace(' n\'t', 'n\'t')
+		tokens = tokens.replace('<p>', ' ')
+		tokens = re.sub(" p\d+", " ", tokens)
+		tokens = re.sub(r'[^\w\s\']','', tokens)
 		tokens = tokens.rstrip().lower().split()
 		tokens_len = len(tokens)
 		for i in range(tokens_len):
@@ -109,7 +114,10 @@ for key, val in unigrams.items():
 for i, file_name in enumerate(FILE_NAMES):
 	for line in open(os.path.join(read_dir, file_name), 'r'):
 		tokens = line.replace(' \'', '\'')
-		tokens = re.sub(r'[^\w\s]','',tokens)
+		tokens = tokens.replace(' n\'t', 'n\'t')
+		tokens = tokens.replace('<p>', ' ')
+		tokens = re.sub(" p\d+", " ", tokens)
+		tokens = re.sub(r'[^\w\s\']','', tokens)
 		tokens = tokens.rstrip().lower().split()
 		tokens_len = len(tokens)
 		for i in range(tokens_len):
