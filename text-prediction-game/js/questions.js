@@ -39,11 +39,14 @@ function submitDemo(){
 
 
 
-
-// Posttest questions
+  ///////////////////////
+ // Posttest questions//
+///////////////////////
 
 function showQuestions(){
 	for(i in postQs){
+		let qNum = parseInt(i) + 1;
+		expt.postQhtml += "<b style='font-size:18px'>" + qNum + ". </b>"
 		switch(postQs[i]["type"]) {
 			case "slider":
 				expt.postQhtml += addSlider(postQs[i]);
@@ -91,16 +94,15 @@ function setupSlider(){
         });
 }
 
-
 function submitPosttest(){
 	for(i in postQs){
 		let id = postQs[i]["id"];
 		switch(postQs[i]["type"]) {
 			case "slider":
-				postResponse[id] = $("input[id = " + id + "Slider]").val(); //$("input[id = 'trustSlider']").val();
+				postResponse[id] = $("input[id = " + id + "Slider]").val(); 
 				break;
 			case "radio":
-				postResponse[id] = $("input[name = " + id + "Radio]:checked").val(); //$("input[name = 'predictOnRadio']:checked").val();
+				postResponse[id] = $("input[name = " + id + "Radio]:checked").val(); 
 				break;
 		}
 	}
