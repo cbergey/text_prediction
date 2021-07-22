@@ -1,6 +1,9 @@
 var demographicClient = { // filled out by participant
 	country: "",
 	gender: "",
+	genderOther: "",
+	race: "",
+	raceOther: "",
 	age: "",
 	english: "",
 	otherLangBirth: "",
@@ -14,6 +17,16 @@ var demographicClient = { // filled out by participant
 
 var postResponse = {};
 
+function getAllChecked(name){
+	let arr = [];
+	$('input[name='+name+']:checked').each(function () {
+		if(this.checked){
+			arr.push($(this).val());
+		}
+	});
+	return(arr)
+}
+
 function openExplain(value){
 	$('#'+value+"Explain").prop("disabled",false);
 }
@@ -24,17 +37,21 @@ function closeExplain(value){
 
 function submitDemo(){
 	demographicClient.country = $('select[name = "country"] option:selected').val();
-	demographicClient.gender = $('input[name = "gender"]:checked').val();
+	demographicClient.gender = getAllChecked('gender');
+	demographicClient.genderOther = $('#genderOther').val();
+	demographicClient.race = getAllChecked('race');
+	demographicClient.raceOther = $('#raceOther').val();
 	demographicClient.age = $('#age').val();
 	demographicClient.english = $('input[name = "english"]:checked').val();
 	demographicClient.otherLangBirth = $('#otherLangBirth').val();
 	demographicClient.otherLangLater = $('#otherLangLater').val();
-	demographicClient.country = $('select[name = "education"] option:selected').val();
+	demographicClient.education = $('select[name = "education"] option:selected').val();
 	demographicClient.occupation = $('#occupation').val();
 	demographicClient.disability = $('input[name = "disability"]:checked').val();
 	demographicClient.disabilityExplain = $('#disabilityExplain').val();
 
 	client.demographic = demographicClient;
+	saveData();
 }
 
 
