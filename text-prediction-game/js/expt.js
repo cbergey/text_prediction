@@ -1,52 +1,48 @@
 
-
 function pageLoad(){
-    // expt.stimOrder = shuffle(stim);
-    expt.stimOrder = stim;
+    expt.stimOrder = stim; //not shuffling since the story is ordered
     $("#demoSurvey").load("demographic.html");
-    // loadCondition(expt.condition);
+
+    expt.condition = Array.isArray(expt.condition) ? sample(expt.condition) : expt.condition; //randomly assign condition
+    loadCondition();
     
     clicksMap[expt.startPage]();
 }
 
 function loadCondition(){
-    let gram = ["unigram","bigram","trigram"]
-    for(var g=0; g < gram.length; g++){
-        let scriptElement=document.createElement('script');
-        scriptElement.type = 'text/javascript';
-        scriptElement.src = 'ngram/'+expt.condition+'_'+gram[g]+'.json';
-        document.head.appendChild(scriptElement);
-        console.log(scriptElement)
+    if(expt.condition != "control"){
+        $('#continueInstruct').prop('disabled', true);
+        $.getJSON("ngram/" + expt.condition + "_unigram.json", function(uni){
+            ngram[0] = uni;
+        }).fail(function() {
+            console.log("error loading ngram dicts");
+        })
 
-        // if(condition == "childes"){
-        //     switch(g){
-        //         case 0:
-        //             expt.lm[g] = childes_unigram;
-        //             break;
-        //         case 1:
-        //             expt.lm[g] = childes_bigram;
-        //             break;
-        //         case 2:
-        //             expt.lm[g] = childes_trigram;
-        //             break;
-        //     } 
-        // } else if(condition == "COCA"){
-        //     switch(g){
-        //         case 0:
-        //             expt.lm[g] = COCA_unigram;
-        //             break;
-        //         case 1:
-        //             expt.lm[g] = COCA_bigram;
-        //             break;
-        //         case 2:
-        //             expt.lm[g] = COCA_trigram;
-        //             break;
-        //     } 
-        // }
+        $.getJSON("ngram/" + expt.condition + "_bigram.json", function(bi){
+            ngram[1] = bi;
+        }).fail(function() {
+            console.log("error loading ngram dicts");
+        })
+
+        // $.ajaxSetup({
+        //     timeout: 0
+        // });
+        $.ajax({
+            dataType: "json",
+            url: "ngram/" + expt.condition + "_trigram.json",
+            data: data,
+            success: function(tri) { 
+                ngram[2] = tri; 
+                console.log("ready!");
+                $('#continueInstruct').prop('disabled', false); //enables moving on to trials after files loaded
+            },
+            timeout: 60000
+        }).fail(function() {
+            console.log("error loading ngram dicts");
+        })
     }
-
-    console.log(childes_unigram)
 }
+
 
 function loadConsent(){
     $('#consent').css('display','block');
@@ -67,6 +63,11 @@ function clickConsent(){
 function clickDemo(){
     $('#demographic').css('display','none');
     submitDemo();
+    $('#instructions').css('display','block');
+}
+
+function clickInstruct(){
+    $('#instructions').css('display','none');
     trialStart();
 }
 
@@ -141,6 +142,9 @@ function trialDone(){
     } else {
         // increase trial number
         ++trial.number;
+        if(trial.number == 2){
+            $('#trialInstruct').html("Continue your story, using the new images.");
+        }
         trial.endTime = null;
         $('#response').text(''); //clears text between trials
         trialStart();
@@ -208,6 +212,9 @@ function experimentDone(){
    //////// Helper Functions ////////
   //////////////////////////////////
 
+function sample(set) {
+    return (set[Math.floor(Math.random() * set.length)]);
+}
 
 function shuffle(array){ //shuffle list of objects
   var tornado = array.slice(0);

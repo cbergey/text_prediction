@@ -206,20 +206,19 @@ body {
 #stimRow {
     margin: 0 auto;
     width: 80%;
-    height: 350px;
-    padding: 5px;
+    height: 280px;
     display: flex;
     justify-content: center;
 }
 
 .stimCell {
     float: left;
-    padding: 30px;
+    padding: 0px 30px;
 }
 
 .stimImg {
     text-align: center;
-    width: 290px;
+    width: 260px;
 }
 
 #alert {
@@ -231,7 +230,7 @@ body {
     margin: 0 auto;
     padding: 5px;
     width: 800px;
-    height: 200px;
+    height: 150px;
     /*resize: none;*/
     border:1px solid black;
 }

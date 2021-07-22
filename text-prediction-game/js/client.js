@@ -104,10 +104,10 @@ function submitExternal(client){
 			postSona(client);
 			break;
 		case 'visitor':
-			window.location = "https://la-oey.github.io/";
+			window.location = "https://evullab.org/";
 			break;
 		default:
-			window.location = "https://la-oey.github.io/";
+			window.location = "https://evullab.org/";
 	}
 }
 

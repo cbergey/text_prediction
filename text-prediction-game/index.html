@@ -7,12 +7,8 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src='js/helpers/lodash.js'></script>
-    <script type="text/javascript" src='ngram/childes_unigram.json'></script>
-    <script type="text/javascript" src='ngram/childes_bigram.json'></script>
-    <script type="text/javascript" src='ngram/childes_trigram.json'></script>
-    <!-- <script type="text/javascript" src='ngram/COCA_unigram.json'></script>
-    <script type="text/javascript" src='ngram/COCA_bigram.json'></script>
-    <script type="text/javascript" src='ngram/COCA_trigram.json'></script> -->
+    <!-- <script type="text/javascript" src='ngram/COCAnews_trigram.json'></script>
+    <script type="text/javascript" src='ngram/COCAfic_trigram.json'></script> -->
     <script type="text/javascript" src='js/client.js'></script>
     <script type="text/javascript" src='js/vars.js'></script>
     <script type="text/javascript" src='js/dataio.js'></script>
@@ -49,18 +45,24 @@
     <center><button class="hover-button big-button" id="continueDemo" onclick="clickDemo();">Continue</button></center>
 </div>
 
+<div id="instructions" class="screen">
+    <p class="mtitle">Instructions</p>
+    <p>We will ask you to tell a story, guided by a series of images that you'll see. Afterwards, we'll ask you some questions about your experience.</p><br><br>
+    <center><button class="hover-button big-button" id="continueInstruct" onclick="clickInstruct();">Continue</button></center>
+</div>
+
 <div id="trial" class="screen">
     <p class="mtitle" id="round">Round</p>
     <center>
         <!-- stimuli presentation -->
         <div id="stimRow"></div><br><br>
 
-        <p>Tell a story about the images above</p>
+        <p id="trialInstruct">Tell a story about the images above.</p>
         <p id="alert">&nbsp</p>
     </center>
     <div id="response" contenteditable="true"></div>
 
-    <br><br><br><br>
+    <br><br>
     <button class="hover-button big-button" id="next" type="button" onclick="trialDone();">Next!</button>
 </div>
 
