@@ -3,9 +3,10 @@ var expt = { //add conditions here
     saveKeyCodeURL: 'submit.keycode.php',
     startPage: 'trial', // {'consent','demographic','trial','posttest'}
     condition: 'childes', // {'control', 'childes', 'coca'}
+    predictionType: 'probMatching',
     lm: '',
     totalTrials: 2, //adjust to how many trials you have
-    nStimTrial: 3,
+    nStimTrial: 2,
     debug: false, //set to false when ready to run
     stimOrder: [],
     postQhtml: ''
