@@ -1,7 +1,8 @@
 
 
 function pageLoad(){
-    expt.stimOrder = shuffle(stim);
+    // expt.stimOrder = shuffle(stim);
+    expt.stimOrder = stim;
     $("#demoSurvey").load("demographic.html");
     // loadCondition(expt.condition);
     
@@ -160,6 +161,8 @@ function clickPosttest(){
 function recordKeyCode(){
     keyCodeData.push({
         trialNumber: trial.number,
+        condition: expt.condition,
+        predType: expt.predictionType,
         charNumber: char.number,
         prediction: word.prediction,
         acceptPred: char.acceptPred,
@@ -174,6 +177,8 @@ function recordData(){
     // record what the subject did in json format
     trialData.push({
         trialNumber: trial.number,
+        condition: expt.condition,
+        predType: expt.predictionType,
         trialStim: trial.stim,
         startTime: trial.startTime,
         wordNumber: word.number,
