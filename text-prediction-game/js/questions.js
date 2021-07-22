@@ -63,18 +63,18 @@ function submitDemo(){
 function showQuestions(){
 	for(i in postQs){
 		let qNum = parseInt(i) + 1;
-		expt.postQhtml += "<b style='font-size:18px'>" + qNum + ". </b>"
+		postQhtml += "<b style='font-size:18px'>" + qNum + ". </b>"
 		switch(postQs[i]["type"]) {
 			case "slider":
-				expt.postQhtml += addSlider(postQs[i]);
+				postQhtml += addSlider(postQs[i]);
 				break;
 			case "radio":
-				expt.postQhtml += addRadio(postQs[i]);
+				postQhtml += addRadio(postQs[i]);
 				break;
 		}
-		expt.postQhtml += "<br><br><br><br><br><br><br><br>";
+		postQhtml += "<br><br><br><br><br><br><br><br>";
 	}
-	$("#posttestSurvey").html(expt.postQhtml);
+	$("#posttestSurvey").html(postQhtml);
 
 	setupSlider();
 }
@@ -84,7 +84,7 @@ function addSlider(qi){
 	let ans = qi["answers"];
 	let questionHTML = "<label id=" + id + ">" + qi["question"];
 	let sliderHTML = "<div class='sliderContainer'>" +
-					 "<input id=" + id + "Slider class='slider inactiveSlider' type='range' min='0' max='100' value=''><br>" +
+					 "<input id=" + id + "Slider name=" + id + "Slider class='slider inactiveSlider' type='range' min='0' max='100' value=''><br>" +
 					 "<div class='min'><p>" + ans[0] + "</p></div>" + 
 					 "<div class='max'><p>" + ans[1] + "</p></div>" + 
 					 "</div>";
@@ -105,25 +105,33 @@ function addRadio(qi){
 function setupSlider(){
 	$('.slider').on('click input',
         function(){
-            var val = $(this).prop('value');
             $(this).removeClass('inactiveSlider');
             $(this).addClass('activeSlider');
         });
 }
 
 function submitPosttest(){
+	let checkResponse = true;
 	for(i in postQs){
 		let id = postQs[i]["id"];
 		switch(postQs[i]["type"]) {
 			case "slider":
-				postResponse[id] = $("input[id = " + id + "Slider]").val(); 
+				postResponse[id] = $("#"+id+"Slider").val(); 
+				if($('#'+id+'Slider').hasClass('inactiveSlider')){
+					checkResponse = false;
+				}
 				break;
 			case "radio":
 				postResponse[id] = $("input[name = " + id + "Radio]:checked").val(); 
+				if($("input[name = " + id + "Radio]:checked").val() == undefined){
+					checkResponse = false;
+				}
 				break;
 		}
 	}
 	client.posttest = postResponse;
+	saveData();
+	return(checkResponse);
 }
 
 

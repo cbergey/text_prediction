@@ -157,9 +157,12 @@ function showPosttest(){
 }
 
 function clickPosttest(){
-    submitPosttest();
-    $('#postExpt').css('display','none');
-    $('#completed').css('display','block');
+    if(submitPosttest()){
+        $('#postExpt').css('display','none');
+        $('#completed').css('display','block');
+    } else{
+        alert("Please respond to all questions to move on.")
+    }
 }
 
 function recordKeyCode(){
