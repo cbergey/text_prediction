@@ -28,7 +28,7 @@ var postQs = [
 		"id": "predictOn",
 		"question": "In general, do you keep text prediction settings on?",
 		"type": "radio",
-		"answers": ["yes", "no," "sometimes"]
+		"answers": ["yes", "no", "sometimes"]
 	}, {
 		"id": "trust",
 		"question": "In general, how much do you trust text prediction?",
