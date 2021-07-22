@@ -5,7 +5,7 @@ function getPrediction(callfunction){
     var nWords = getStringLen($('#response').text());
     word.number = nWords;
     nWords = Math.min(nWords, 2); // if # words > 2, reduce to 2
-    var nDict = ngram[nWords] // get which ngram dictionary
+    let nDict = ngram[nWords] // get which ngram dictionary
     
     //stuff here to get prediction from dictionary
     try {
@@ -18,19 +18,20 @@ function getPrediction(callfunction){
             let predWord = '';
             return(predWord);
         } else { // look up bigram or trigram
-            try {
-                let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-                // ~~ functions ~~
-                // getMax = get most freq word
-                // getProbMatch = stochastically choose from the normed 10-most freq words
-                let predWord = callfunction(nDict[lastWords]); 
-                return(predWord);
-            } catch(error) { // if we don't have enough known context, back off on amount of context
-                nWords = nWords == 1 ? 1 : nWords - 1;
-                let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
-                let predWord = callfunction(nDict[lastWords]); // call function again
-                return(predWord);
+            let lastWords = getLastNWords($('#response').text(), nWords).toLowerCase(); //previous word(s) & lower case
+            // ~~ functions ~~
+            // getMax = get most freq word
+            // getProbMatch = stochastically choose from the normed 10-most freq words
+            while(nDict[lastWords] == undefined){ // if we don't have enough known context, back off on amount of context
+                nWords -= 1;
+                nDict = ngram[nWords];
+                if(nWords == 0){
+                    let predWord = callfunction(nDict);
+                    return(predWord);
+                }
             }
+            let predWord = callfunction(nDict[lastWords]); 
+            return(predWord);
         }
     } catch(error){ // if no word is predicted, return blank
         //console.error(error);
