@@ -40,11 +40,13 @@ function getPrediction(callfunction){
 }
 
 function showPrediction(){
-    let charLen = $('#response').text().length;
-    word.prediction = getPrediction(getProbMatch);
-    $('#response').append("<font id='predictedWord'>" + word.prediction + "</font>");
-    setCaret(charLen); // set carat to before predicted word
-    word.acceptPred = false; //reset whether prediction was accepted
+    if(expt.condition != "control"){
+        let charLen = $('#response').text().length;
+        word.prediction = getPrediction(getProbMatch);
+        $('#response').append("<font id='predictedWord'>" + word.prediction + "</font>");
+        setCaret(charLen); // set carat to before predicted word
+        word.acceptPred = false; //reset whether prediction was accepted
+    }
 }
 
 function hidePrediction(){

@@ -1,11 +1,7 @@
-var stim = [
-	"luca.jpg",
-	"nemo.jpg",
-	"wall-e.jpg",
-	"up.jpg",
-	"bugs-life.jpg",
-	"soul.jpg"
-];
+var stim = [];
+for(i=0; i<10; i++){
+	stim.push("Frog"+i+".png");
+}
 
 var ngram = {
 	// "childes": {
