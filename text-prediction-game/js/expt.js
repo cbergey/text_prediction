@@ -52,7 +52,7 @@ function loadCondition(){
 function loadProlific(){
     $('#prolific').css('display','block');
     $('#continueProlific').prop('disabled',true);
-    $('#prolificID').change(
+    $('#prolificID').keydown(
         function(){
             if($(this).val() != ""){
                 $('#continueProlific').attr('disabled',false);
@@ -69,13 +69,13 @@ function clickProlific(){
 
 function loadConsent(){
     $('#consent').css('display','block');
-    $('#continueConsent').attr('disabled',true);
-    $('input:radio[name="consent"]').change(
-        function(){
-            if($(this).is(':checked') && $(this).val()=="yes"){
-                $('#continueConsent').attr('disabled',false);
-            }
-        });
+    // $('#continueConsent').attr('disabled',true);
+    // $('input:radio[name="consent"]').change(
+    //     function(){
+    //         if($(this).is(':checked') && $(this).val()=="yes"){
+    //             $('#continueConsent').attr('disabled',false);
+    //         }
+    //     });
 }
 
 function clickConsent(){

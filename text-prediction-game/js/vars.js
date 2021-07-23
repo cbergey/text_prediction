@@ -2,7 +2,7 @@ var expt = { //add conditions here
     saveURL: 'submit.simple.php',
     saveKeyCodeURL: 'submit.keycode.php',
     startPage: 'prolific', // {'prolific', consent','demographic','instructions','trial','posttest'}
-    condition: ['control', 'childes', 'COCAnews', 'COCAfic'],
+    condition: ['control', 'childes'], // ['COCAnews', 'COCAfic']
     predictionType: 'probMatching',
     lm: '',
     totalTrials: 5, //adjust to how many trials you have
