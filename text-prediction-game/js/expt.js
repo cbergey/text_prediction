@@ -71,6 +71,7 @@ function clickDemo(){
 function clickInstruct(){
     $('#instructions').css('display','none');
     trialStart();
+    listenResponse();
 }
 
 
@@ -83,7 +84,6 @@ function trialStart(){
     //function here of experiment
     predActive = true;
     $('#stimRow').html(presentStim(expt.nStimTrial));
-    listenResponse();
     showPrediction();
     turnOffCaretMove();
 }
@@ -149,6 +149,7 @@ function trialDone(){
         }
         trial.endTime = null;
         $('#response').text(''); //clears text between trials
+        trial.fullResponse = '';
         trialStart();
     }
 }

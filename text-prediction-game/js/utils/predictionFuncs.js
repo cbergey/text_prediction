@@ -23,12 +23,14 @@ function getPrediction(callfunction){
             // getMax = get most freq word
             // getProbMatch = stochastically choose from the normed 10-most freq words
             while(nDict[lastWords] == undefined){ // if we don't have enough known context, back off on amount of context
-                nWords -= 1;
+                nWords = nWords - 1;
                 nDict = ngram[nWords];
                 if(nWords == 0){
                     let predWord = callfunction(nDict);
                     return(predWord);
                 }
+                let predWord = callfunction(nDict[lastWords]);
+                return(predWord);
             }
             let predWord = callfunction(nDict[lastWords]); 
             return(predWord);

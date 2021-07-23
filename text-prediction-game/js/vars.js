@@ -2,16 +2,16 @@ var expt = { //add conditions here
     saveURL: 'submit.simple.php',
     saveKeyCodeURL: 'submit.keycode.php',
     startPage: 'consent', // {'consent','demographic','instructions','trial','posttest'}
-    condition: 'childes', //['control', 'childes', 'COCAnews', 'COCAfic'],
+    condition: ['control', 'childes', 'COCAnews', 'COCAfic'],
     predictionType: 'probMatching',
     lm: '',
     totalTrials: 5, //adjust to how many trials you have
     nStimTrial: 2,
     stimOrder: [],
-    // sona: {
-    //     experiment_id: 1505,
-    //     credit_token: 'b20092f9d3b34a378ee654bcc50710ea'
-    // },
+    sona: {
+        experiment_id: 2132,
+        credit_token: '11775c36fd90451782ea8429cd023247'
+    },
     debug: false //set to false when ready to run
 };
 
