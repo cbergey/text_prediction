@@ -41,6 +41,10 @@ function loadCondition(){
             timeout: 60000
         }).fail(function() {
             console.log("error loading ngram dicts");
+            // if failed to load, re-assign condition to control and continue
+            expt.condition = "control";
+            $('#continueInstruct').html('Continue');
+            $('#continueInstruct').prop('disabled', false);
         })
     }
 }
