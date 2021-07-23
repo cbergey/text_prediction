@@ -1,0 +1,113 @@
+---
+title: "analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(here)
+library(reticulate)
+library(entropy)
+library(tidyboot)
+library(stringr)
+use_condaenv("r-reticulate")
+w2v_dir = here("data/wiki-news-300d-1M.vec")
+```
+
+
+```{r load-data}
+raw_data <- read_csv(here("data/rawwords.csv")) %>%
+  mutate(utt = gsub('[[:punct:]]+', '', tolower(textResponse))) %>%
+  mutate(utt = trimws(gsub("\u00A0", " ", utt, fixed = TRUE))) %>%
+  mutate(word = stringr::word(utt, -1)) 
+```
+
+```{r get-words}
+word_counts <- raw_data %>%
+  group_by(subjID, condition) %>%
+  count(word)
+
+word_counts %>%
+  ggplot(aes(x = word, y = n, group = subjID)) +
+  geom_col() +
+  facet_wrap(~condition)
+
+word_counts_zipf <- raw_data %>%
+  count(word) %>%
+  arrange(desc(n))
+
+plot(log10(seq_along(word_counts_zipf$n)), log10(unclass(word_counts_zipf$n)))
+
+```
+
+```{r w2vprep}
+set.seed(11)
+words_list <- raw_data %>%
+  select(subjID, condition, word) %>%
+  group_by(subjID) %>%
+  filter(!is.na(word), str_remove_all(word, " ") != "") %>%
+  mutate(random_word = sample(word)) %>%
+  ungroup()
+
+random <- words_list %>%
+  select(-subjID, -condition)
+
+```
+
+```{python}
+from gensim import utils
+import gensim.models
+import gensim.models.word2vec
+from gensim.test.utils import datapath
+from gensim.models import KeyedVectors
+
+wiki_model = KeyedVectors.load_word2vec_format(r.w2v_dir)
+vocabulary = wiki_model.vocab
+
+words_dict = {}
+for i in range(0,len(r.random['word'])):
+   if r.random['word'][i] in vocabulary and r.random['random_word'][i] in vocabulary:
+      words_dict[r.random['word'][i] + " " + r.random['random_word'][i]] = wiki_model.similarity(r.random['word'][i], r.random['random_word'][i])
+```
+
+```{r w2v-processing}
+sims <- py$words_dict %>% unlist() %>% as.list() %>% as_tibble() %>%
+  t() %>% as_tibble(rownames = "name") %>%
+  rename(sim = V1) %>%
+  mutate(word = gsub(" .*$", "", name), random_word = gsub(".* ", "", name)) %>%
+  select(-name)
+
+wordsims <- words_list %>%
+  left_join(sims, by = c("word", "random_word"))
+
+wordsims %>%
+  filter(!is.na(sim)) %>%
+  group_by(subjID) %>%
+  summarise(var = var(sim), mean = mean(sim))
+```
+
+```{r entropy}
+ents <- word_counts %>%
+  group_by(subjID) %>%
+  mutate(entropy = entropy(n))
+
+ents %>%
+  group_by(subjID, condition) %>%
+  summarise(mean_ent = mean(entropy)) %>%
+  ggplot(aes(x = condition, y = mean_ent)) +
+  geom_jitter() 
+```
+
+```{r accepted}
+accepted <- raw_data %>%
+  group_by(subjID, condition) %>%
+  summarise(prop_acc = sum(predAccepted)/n())
+
+retyped <- raw_data %>%
+  mutate(retyped = if_else(textPrediction == textResponse, TRUE, FALSE, missing = FALSE)) %>% 
+  group_by(subjID, condition) %>%
+  summarise(prop_retyped = sum(retyped)/n())
+
+
+```
+
