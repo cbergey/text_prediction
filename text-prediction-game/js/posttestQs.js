@@ -21,7 +21,7 @@ var postQs = [
 		"answers": ["not at all", "very creative"]
 	}, {
 		"id": "stress",
-		"question": "How stressed did this task make your feel?",
+		"question": "How stressed did this task make you feel?",
 		"type": "slider",
 		"answers": ["not at all", "very stressed"]
 	}, {
