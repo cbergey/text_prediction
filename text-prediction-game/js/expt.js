@@ -12,6 +12,7 @@ function pageLoad(){
 function loadCondition(){
     if(expt.condition != "control"){
         $('#continueInstruct').prop('disabled', true);
+        $('#continueInstruct').html('Waiting to load...');
         $.getJSON("ngram/" + expt.condition + "_unigram.json", function(uni){
             ngram[0] = uni;
         }).fail(function() {
@@ -34,6 +35,7 @@ function loadCondition(){
             success: function(tri) { 
                 ngram[2] = tri; 
                 console.log("ready!");
+                $('#continueInstruct').html('Continue');
                 $('#continueInstruct').prop('disabled', false); //enables moving on to trials after files loaded
             },
             timeout: 60000
