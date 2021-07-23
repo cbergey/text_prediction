@@ -29,8 +29,6 @@ function getPrediction(callfunction){
                     let predWord = callfunction(nDict);
                     return(predWord);
                 }
-                let predWord = callfunction(nDict[lastWords]);
-                return(predWord);
             }
             let predWord = callfunction(nDict[lastWords]); 
             return(predWord);
