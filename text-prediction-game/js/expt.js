@@ -45,6 +45,23 @@ function loadCondition(){
     }
 }
 
+function loadProlific(){
+    $('#prolific').css('display','block');
+    $('#continueProlific').prop('disabled',true);
+    $('#prolificID').change(
+        function(){
+            if($(this).val() != ""){
+                $('#continueProlific').attr('disabled',false);
+            }
+        });
+}
+
+function clickProlific(){
+    $('#prolific').css('display','none');
+    client.prolificID = $('#prolificID').val();
+    loadConsent();
+}
+
 
 function loadConsent(){
     $('#consent').css('display','block');

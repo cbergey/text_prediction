@@ -1,7 +1,7 @@
 var expt = { //add conditions here
     saveURL: 'submit.simple.php',
     saveKeyCodeURL: 'submit.keycode.php',
-    startPage: 'consent', // {'consent','demographic','instructions','trial','posttest'}
+    startPage: 'prolific', // {'prolific', consent','demographic','instructions','trial','posttest'}
     condition: ['control', 'childes', 'COCAnews', 'COCAfic'],
     predictionType: 'probMatching',
     lm: '',

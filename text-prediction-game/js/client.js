@@ -104,10 +104,10 @@ function submitExternal(client){
 			postSona(client);
 			break;
 		case 'visitor':
-			window.location = "https://evullab.org/";
+			window.location = "https://app.prolific.co/submissions/complete?cc=763C9EA8";
 			break;
 		default:
-			window.location = "https://evullab.org/";
+			window.location = "https://app.prolific.co/submissions/complete?cc=763C9EA8";
 	}
 }
 
